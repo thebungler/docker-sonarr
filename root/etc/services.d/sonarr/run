@@ -1,15 +1,14 @@
 #!/usr/bin/with-contenv bash
 
 UMASK_SET=${UMASK_SET:-022}
-
 umask "$UMASK_SET"
+
+echo "Sleeping a bit, to let hydra and nzbget come up ..."
+sleep 60
+echo "enough slept, let's go!"
 
 cd /app/sonarr/bin || exit
 
-# echo "Sleeping a bit, to let hydra and nzbget come up ..."
-# sleep 60
-# echo "enough slept, let's go!"
-
 exec \
-	s6-setuidgid abc mono --debug NzbDrone.exe \
+	s6-setuidgid abc mono --debug Sonarr.exe \
 	-nobrowser -data=/config
